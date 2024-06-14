@@ -180,6 +180,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+#edit start
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -187,16 +188,13 @@ bar {
 status_command i3status -c "/home/linux/.config/i3/i3status.conf"
 
 	position bottom
-	
 	colors {
      	   separator  #dc322f
      	   #background #282a36
 	   statusline #50fa7b
+	   binding_mode  #d1c9c9 #d1c9c9 #000000
    	}
-
 }
-
-#custom edit
 
 #window color
 set $bgcolor    #523d64
@@ -213,33 +211,37 @@ client.unfocused        $in-bgcolor     $in-bgcolor     $in-text        $in-bgco
 client.focused_inactive $in-bgcolor     $in-bgcolor     $in-text        $in-bgcolor
 client.urgent           $u-bgcolor      $u-bgcolor      $text           $u-bgcolor 
 
+#for window
+for_window [class="Blueman-manager"] floating enable, resize set 600 400, move position center
 
 #title alignment
 title_align center
 default_border pixel 1
 
-
-
-#commands
+#bar control
+bindsym $mod+b bar mode dock
+bindsym $mod+Shift+b bar mode invisible
 
 #change monitor
-bindsym $mod+p exec --no-startup-id xrandr --output eDP --off &&  xrandr --output HDMI-A-0 --primary && i3-msg restart && i3-msg workspace 1 
+mode "monitor"{
+     bindsym f exec "xrandr --output eDP --off && xrandr --output HDMI-A-0 --auto --right-of eDP",restart,mode "default"
+     bindsym n exec "xrandr --output HDMI-A-0 --off && xrandr --output eDP --auto --right-of HDMI-A-0",restart,mode "default"
+     bindsym x exec --no-startup-id "xrandr --output HDMI-A-0 --auto --right-of eDP",mode "default"
+     bindsym Escape mode "default"
+}
+bindsym $mod+p mode "monitor"
+
 
 #session action
-bindsym Mod1+Escape mode ""
 mode ""{
-     bindsym s exec "shutdown now"
-     bindsym r exec "reboot"
-     bindsym e exec "i3-msg exit"
-     bindsym w exec "systemctl suspend"
+     bindsym s exec "shutdown now",mode "default"
+     bindsym r exec "reboot",mode "default"
+     bindsym e exec "i3-msg exit",mode "default"
+     bindsym w exec "systemctl suspend",mode "default"
      bindsym Escape mode "default"
-     bindsym Return mode "default"
 }
+bindsym Mod1+Escape mode ""
 
-#for window
-for_window [class="Blueman-manager"] floating enable, resize set 600 400, move position center
-
-for_window [class="i3-frame"] resize 1000 500 
 
 #switch workspace
 bindsym Control+Mod1+Left workspace prev;
@@ -247,37 +249,41 @@ bindsym Control+Mod1+j workspace prev;
 bindsym Control+Mod1+Right workspace next;
 bindsym Control+Mod1+semicolon workspace next;
 
+#scratchpad
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+Shift+d scratchpad show
+
 
 #required applications
+
 #feh(wallpaper)
-#exec_always feh --randomize --bg-fill "/home/linux/Pictures/wallpaper/wallpapersCraft/"
-exec_always feh --bg-fill "/home/linux/Pictures/wallpaper/callOfDuty.jpg"
+#exec_always --no-startup-id feh --randomize --bg-fill "/home/linux/Pictures/wallpaper/wallpapersCraft/"
+exec_always --no-startup-id feh --bg-fill "/home/linux/Pictures/wallpaper/callOfDuty.jpg"
 
 #polybar
 #exec_always --no-startup-id /home/linux/.config/polybar/launch.sh
 
 # picom
-exec_always picom -f --experimental-backends -b
+exec_always --no-startup-id picom --experimental-backends -b
 
 #rofi
-bindsym $mod+d exec --no-startup-id "rofi -show drun"
-bindsym $mod+Tab exec --no-startup-id "rofi -show window"
-bindsym $mod+x exec --no-startup-id "rofi -show filebrowser"
-
+bindsym $mod+d exec "rofi -show drun"
+bindsym $mod+Tab exec "rofi -show window"
+bindsym $mod+x exec "rofi -show filebrowser"
 
 
 #applications
 
 #screenshooter
-bindsym Print exec --no-startup-id ffmpeg -f x11grab -i $DISPLAY -vframes 1 /home/linux/Pictures/ScreenShort/$(date +"%d-%m-%y_%I:%M:%S%p").png
-bindsym $mod+Print exec --no-startup-id xfce4-screenshooter -w
-bindsym Shift+Print exec --no-startup-id xfce4-screenshooter -r
+bindsym Print exec ffmpeg -f x11grab -i $DISPLAY -vframes 1 /home/linux/Pictures/ScreenShort/$(date +"%d-%m-%y_%I:%M:%S%p").png
+bindsym $mod+Print exec xfce4-screenshooter -w
+bindsym Shift+Print exec pkill picom && xfce4-screenshooter -r && picom --experimental-backends -b
 
 #emacs 
 bindsym $mod+Shift+g exec emacs
 
 #firefox
-bindsym $mod+Shift+z exec --no-startup-id firefox
+bindsym $mod+Shift+z exec firefox
 
 #thunar filemanager
 bindsym $mod+Shift+f exec thunar
@@ -286,4 +292,7 @@ bindsym $mod+Shift+f exec thunar
 bindsym Control+Shift+Escape exec gnome-system-monitor
 
 #find cursor
-bindsym $mod+Shift+p exec --no-startup-id xfce4-find-cursor
+bindsym $mod+Shift+p exec xfce4-find-cursor
+
+#typing python program
+bindsym $mod+t exec xfce4-terminal -e "python3 /home/linux/TuxType/Typing/run.pyc"
