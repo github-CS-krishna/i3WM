@@ -41,7 +41,7 @@ element selected {
   text-color: @fg;
   border:1px;
   border-radius:15px;
-  border-color:rgb(160, 134, 134);
+  border-color:rgba(127, 132, 156,0.7);
 }
 
 element-text {

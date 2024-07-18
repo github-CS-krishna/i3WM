@@ -83,10 +83,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+h split h, exec --no-startup-id notify-send 'tile horizontally' -t 2000
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split v, exec --no-startup-id notify-send 'tile vertically' -t 2000
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -185,7 +185,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 
-status_command i3status -c "/home/linux/.config/i3/i3status.conf"
+status_command i3status -c "~/.config/i3/i3status.conf"
 
 	position bottom
 	colors {
@@ -223,25 +223,27 @@ bindsym $mod+b bar mode dock
 bindsym $mod+Shift+b bar mode invisible
 
 #change monitor
-mode "monitor"{
-     bindsym f exec "xrandr --output eDP --off && xrandr --output HDMI-A-0 --auto --right-of eDP",restart,mode "default"
-     bindsym n exec "xrandr --output HDMI-A-0 --off && xrandr --output eDP --auto --right-of HDMI-A-0",restart,mode "default"
-     bindsym x exec --no-startup-id "xrandr --output HDMI-A-0 --auto --right-of eDP",mode "default"
+mode ""{
+     bindsym f exec "xrandr --output eDP --off && xrandr --output HDMI-A-0 --auto --right-of eDP", restart, mode "default"
+     bindsym n exec "xrandr --output HDMI-A-0 --off && xrandr --output eDP --auto --right-of HDMI-A-0", restart, mode "default" 
+     bindsym x exec --no-startup-id "xrandr --output HDMI-A-0 --auto --right-of eDP", restart, mode "default"
      bindsym Escape mode "default"
 }
-bindsym $mod+p mode "monitor"
+bindsym $mod+p mode ""
 
 
 #session action
 mode ""{
-     bindsym s exec "shutdown now",mode "default"
-     bindsym r exec "reboot",mode "default"
-     bindsym e exec "i3-msg exit",mode "default"
-     bindsym w exec "systemctl suspend",mode "default"
+     bindsym s exec "shutdown now", mode "default"
+     bindsym r exec "reboot", mode "default"
+     bindsym e exec "i3-msg exit", mode "default"
+     bindsym w exec "systemctl suspend", mode "default"
      bindsym Escape mode "default"
 }
 bindsym Mod1+Escape mode ""
 
+#xkill
+bindsym $mod+Shift+x exec xfce4-terminal -e xkill
 
 #switch workspace
 bindsym Control+Mod1+Left workspace prev;
@@ -257,8 +259,8 @@ bindsym $mod+Shift+d scratchpad show
 #required applications
 
 #feh(wallpaper)
-#exec_always --no-startup-id feh --randomize --bg-fill "/home/linux/Pictures/wallpaper/wallpapersCraft/"
-exec_always --no-startup-id feh --bg-fill "/home/linux/Pictures/wallpaper/callOfDuty.jpg"
+exec_always --no-startup-id feh --randomize --bg-fill "/home/linux/Pictures/wallpaper/collection/openSourceOpenMind.png"
+#exec_always --no-startup-id feh --bg-fill "$HOME/Pictures/wallpaper/collection/callOfDuty.png"
 
 #polybar
 #exec_always --no-startup-id /home/linux/.config/polybar/launch.sh
@@ -295,4 +297,4 @@ bindsym Control+Shift+Escape exec gnome-system-monitor
 bindsym $mod+Shift+p exec xfce4-find-cursor
 
 #typing python program
-bindsym $mod+t exec xfce4-terminal -e "python3 /home/linux/TuxType/Typing/run.pyc"
+bindsym $mod+t exec xfce4-terminal -e typingPractice
