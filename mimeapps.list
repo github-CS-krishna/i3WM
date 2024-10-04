@@ -1,0 +1,12 @@
+[Added Associations]
+application/x-shellscript=xed.desktop;
+
+[Default Applications]
+image/png=xviewer.desktop
+image/jpeg=xviewer.desktop
+image/gif=xviewer.desktop
+image/svg+xml=xviewer.desktop
+image/x-icon=xviewer.desktop;firefox.desktop
+application/pdf=xreader.desktop
+text/plain=xed.desktop
+
