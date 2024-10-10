@@ -114,9 +114,13 @@ fi
 
 #custom alias
 alias mongostart="sudo systemctl start mongod"
+alias pyenv="source /home/linuxuser/Python/package/.venv/bin/activate"
+
 
 #pywal
 (cat ~/.cache/wal/sequences &)
 
-#run startup shell
-figlet -w 27 -l "GNU/Linux" | lolcat
+
+#shell startup command
+#figlet -w 27 -l "GNU/Linux" | lolcat -a -d 1
+linuxDistro
