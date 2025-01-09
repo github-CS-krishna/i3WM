@@ -1,5 +1,9 @@
 [Added Associations]
 application/x-shellscript=xed.desktop;
+application/x-sharedlib=xed.desktop;
+text/org=emacsclient.desktop;emacs.desktop;
+audio/flac=vlc.desktop;
+application/pdf=org.inkscape.Inkscape.desktop;gimp.desktop;xreader.desktop;libreoffice-draw.desktop;
 
 [Default Applications]
 image/png=xviewer.desktop
@@ -9,4 +13,4 @@ image/svg+xml=xviewer.desktop
 image/x-icon=xviewer.desktop;firefox.desktop
 application/pdf=xreader.desktop
 text/plain=xed.desktop
-
+application/x-sharedlib=xed.desktop
